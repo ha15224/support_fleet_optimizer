@@ -4,7 +4,7 @@
 
 計算負荷はかなり重いです（時間は数十分程度）
 
-以下，AI生成のREADMEまとめ
+以下，AI生成のコード概要
 
 # Support Fleet Equipment Optimizer
 
