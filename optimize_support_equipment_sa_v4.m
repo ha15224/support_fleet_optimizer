@@ -211,13 +211,13 @@ for s = 1:6
     switch selectedShips.SType(s)
         case {8,9,10}
             allowedTypes{s} = FBB_TYPES;
-        case {7,11}
+        case {7,11,18}
             allowedTypes{s} = CV_TYPES;
         case 2
             allowedTypes{s} = DD_TYPES;
         otherwise
             error(['Ship %d (%s) has unsupported SType %d. ' ...
-                'Only SType 2, 7, 8, 9, 10, 11 are allowed.'], ...
+                'Only SType 2, 7, 8, 9, 10, 11, 18 are allowed.'], ...
                 selectedShips.ShipID(s), selectedShips.Name(s), ...
                 selectedShips.SType(s));
     end
@@ -318,7 +318,7 @@ for s = 1:6
         % first normal slot. This intentionally overrides the workbook's
         % ordinary slot compatibility for Slot 1: only 艦上爆撃機 (type 7)
         % or 艦上攻撃機 (type 8) may be assigned there; radars are excluded.
-        if ismember(selectedShips.SType(s), [7 11]) && rows.Slot(k) == 1
+        if ismember(selectedShips.SType(s), [7 11 18]) && rows.Slot(k) == 1
             allowed = [7 8];
         else
             allowed = parseTypeIDs(rows.AllowedEquipTypeIDs(k));
@@ -342,7 +342,7 @@ for s = 1:6
         switch selectedShips.SType(s)
             case {8,9,10}
                 allowedExpansionTypes = FBB_EX_TYPES;
-            case {7,11}
+            case {7,11,18}
                 allowedExpansionTypes = CV_EX_TYPES;
             case 2
                 allowedExpansionTypes = DD_EX_TYPES;
@@ -1456,7 +1456,7 @@ for s = 1:6
         priority = 2*ones(size(type));
         priority(ismember(type,[1 2 3 38])) = 1;
         priority(ismember(type,[12 13 93])) = 3;
-    elseif ismember(stype,[7 11])       % CVL/B: aircraft before radars
+    elseif ismember(stype,[7 11 18])       % CVL/B: aircraft before radars
         % Carrier aircraft (7,8) -> non-radar -> radars.
         priority = 2*ones(size(type));
         priority(ismember(type,[7 8])) = 1;
